@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4IU3oIAMpZhfWZsMu7xzqBBAf6vMHcoa"></script>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<title>到家的距离</title>
+</head>
+<body>
+	<center>
+		<div id="allmap" style="width: 700px;height: 450px;"></div>
+	</center>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+	var start = "重庆市沙坪坝区西永镇西永天街";
+	var end = "江西省萍乡市湘东区排上镇官桥村";
+	//三种驾车策略：最少时间，最短距离，避开高速
+	var routePolicy = [BMAP_DRIVING_POLICY_LEAST_TIME,BMAP_DRIVING_POLICY_LEAST_DISTANCE,BMAP_DRIVING_POLICY_AVOID_HIGHWAYS];
+	search(start,end,routePolicy[1]); 
+	function search(start,end,route){ 
+		var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: route});
+		driving.search(start,end);
+	}
+</script>
